@@ -1,6 +1,6 @@
 # Documentação da API
 
-Bem-vindo à documentação da API do nosso projeto. Esta API é construída usando Django Rest Framework e fornece endpoints para gerenciar tarefas.
+Teste Arariwe. Esta API é construída usando Django Rest Framework e fornece endpoints para gerenciar tarefas.
 
 ## Endpoints
 
@@ -12,8 +12,8 @@ Bem-vindo à documentação da API do nosso projeto. Esta API é construída usa
 
 | Parâmetro | Descrição         |
 |-----------|-------------------|
-| username  | O nome de usuário |
-| password  | A senha do usuário|
+| username  | O nome de usuário que voce criar|
+| password  | senha |
 
 ### Tarefas
 
@@ -44,4 +44,4 @@ Bem-vindo à documentação da API do nosso projeto. Esta API é construída usa
 
 ## Autenticação JWT
 
-Para acessar os endpoints protegidos, inclua o token JWT no cabeçalho `Authorization` com o valor `Bearer <seu_token_jwt>`, onde `<seu_token_jwt>` é o token JWT obtido na rota `/token/`.
+Nao inseri endpoints protegidos para poupar o tempo, porem para acessar os endpoints protegidos, basta configurar em urls.py e os passos são: incluir o token JWT no cabeçalho `Authorization` com o valor `Bearer <seu_token_jwt>`, onde `<seu_token_jwt>` é o token JWT obtido na rota `/token/`. Basicamente é isso 
