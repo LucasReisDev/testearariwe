@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      background-color: #000;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Tarefas</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Prazo</th>
+        <th>Descrição</th>
+        <th>Finalizada</th>
+        <th>Ações</th> <!-- Coluna para os botões de ação -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{ task.id }}</td>
+        <td>{{ task.titulo }}</td>
+        <td>{{ task.prazo }}</td>
+        <td>{{ task.descricao }}</td>
+        <td>{{ task.finalizada }}</td>
+        <td class="button-container">
+          <form action="{% url 'finalizar_tarefa' task.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Finalizar</button>
+          </form>
+          <form action="{% url 'editar_tarefa' task.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Editar</button>
+          </form>
+          <form action="{% url 'excluir_tarefa' task.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Excluir</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="post" action="{% url 'criar_tarefa' %}">
+    {% csrf_token %}
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+    <label for="prazo">Prazo:</label>
+    <input type="date" id="prazo" name="prazo">
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao"></textarea>
+    <input type="checkbox" id="finalizada" name="finalizada">
+    <label for="finalizada">Finalizada</label>
+    <button type="submit">Criar</button>
+  </form>
+</body>
+</html>
