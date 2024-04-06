@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Tarefa</title>
 </head>
 <body>
-    <h1>Edit</h1>
+  <h1>Editar Tarefa</h1>
+  <form id="editForm" method="post">
+    {% csrf_token %}
+    <label for="edit-titulo">Título:</label>
+    <input type="text" id="edit-titulo" name="titulo" value="{{ task.titulo }}">
+    <label for="edit-prazo">Prazo:</label>
+    <input type="date" id="edit-prazo" name="prazo" value="{{ task.prazo }}">
+    <label for="edit-descricao">Descrição:</label>
+    <textarea id="edit-descricao" name="descricao">{{ task.descricao }}</textarea>
+    <input type="checkbox" id="edit-finalizada" name="finalizada" {% if task.finalizada %}checked{% endif %}>
+    <label for="edit-finalizada">Finalizada</label>
+    <button type="submit">Salvar Alterações</button>
+  </form>
 </body>
 </html>

@@ -4,6 +4,9 @@ from .serializers import TaskSerializer
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
+from rest_framework.authtoken.views import ObtainAuthToken,APIView
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -32,9 +35,10 @@ def edit_task(request, pk):
         if form.is_valid():
             form.save()
             return redirect('index')
-    else:
+    else:   
         form = TaskForm(instance=task)
-    return render(request, 'tasks/edit_task.html', {'form': form})
+    return render(request, 'tasks/edit_task.html', {'form': form, 'task_id': pk})
+
 
 def delete_task(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -48,3 +52,11 @@ def finalizar_tarefa(request, pk):
     task.finalizada = True
     task.save()
     return redirect('index')
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})

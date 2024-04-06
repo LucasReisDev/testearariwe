@@ -32,30 +32,6 @@
       color: white;
     }
 
-    form {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: 1px solid #ddd;
-      background-color: #000;
-      color: #fff;
-      cursor: pointer;
-    }
-
     .button-container {
       display: flex;
       gap: 5px;
@@ -72,7 +48,7 @@
         <th>Prazo</th>
         <th>Descrição</th>
         <th>Finalizada</th>
-        <th>Ações</th> <!-- Coluna para os botões de ação -->
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -88,7 +64,7 @@
             {% csrf_token %}
             <button type="submit">Finalizar</button>
           </form>
-          <form action="{% url 'editar_tarefa' task.id %}" method="post">
+          <form action="{% url 'editar_tarefa' task.id %}">
             {% csrf_token %}
             <button type="submit">Editar</button>
           </form>
@@ -102,17 +78,20 @@
     </tbody>
   </table>
 
-  <form method="post" action="{% url 'criar_tarefa' %}">
+  <form id="createForm" method="post" action="{% url 'criar_tarefa' %}">
     {% csrf_token %}
-    <label for="titulo">Título:</label>
-    <input type="text" id="titulo" name="titulo" required>
-    <label for="prazo">Prazo:</label>
-    <input type="date" id="prazo" name="prazo">
-    <label for="descricao">Descrição:</label>
-    <textarea id="descricao" name="descricao"></textarea>
-    <input type="checkbox" id="finalizada" name="finalizada">
-    <label for="finalizada">Finalizada</label>
+    <label for="create-titulo">Título:</label>
+    <input type="text" id="create-titulo" name="titulo" required>
+    <label for="create-prazo">Prazo:</label>
+    <input type="date" id="create-prazo" name="prazo">
+    <label for="create-descricao">Descrição:</label>
+    <textarea id="create-descricao" name="descricao"></textarea>
+    <input type="checkbox" id="create-finalizada" name="finalizada">
+    <label for="create-finalizada">Finalizada</label>
     <button type="submit">Criar</button>
   </form>
+
+
+  
 </body>
 </html>

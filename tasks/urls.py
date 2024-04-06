@@ -1,15 +1,17 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
-from .views import TaskViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .views import CustomAuthToken, TaskViewSet
 from . import views
+from rest_framework.routers import DefaultRouter
 
-# Crie um DefaultRouter
+# Crie um DefaultRouter para as tarefas
 router = DefaultRouter()
+router.register(r'tasks', TaskViewSet, basename='task')
 
-# Registre sua TaskViewSet
-router.register(r'tasks', TaskViewSet)
+# Crie outro DefaultRouter para a autenticação
+auth_router = DefaultRouter()
+auth_router.register(r'auth', CustomAuthToken, basename='auth')
 
-# Defina suas URLs
 urlpatterns = [
     # Inclua as URLs da API REST da TaskViewSet
     path('', views.index, name='index'),
@@ -17,7 +19,8 @@ urlpatterns = [
     path('editar/<int:pk>/', views.edit_task, name='editar_tarefa'),
     path('excluir/<int:pk>/', views.delete_task, name='excluir_tarefa'),
     path('finalizar/<int:pk>/', views.finalizar_tarefa, name='finalizar_tarefa'),
+    path('token/', CustomAuthToken.as_view(), name='token_obtain_pair')
 ]
 
-# Inclua as URLs geradas pelo DefaultRouter
+# Adicione as URLs dos roteadores aos urlpatterns
 urlpatterns += router.urls
