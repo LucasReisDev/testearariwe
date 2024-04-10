@@ -88,7 +88,6 @@ button {
   <table>
     <thead>
       <tr>
-
         <th>Título</th>
         <th>Prazo</th>
         <th>Descrição</th>
@@ -102,7 +101,7 @@ button {
         <td>{{ task.titulo }}</td>
         <td>{{ task.prazo }}</td>
         <td>{{ task.descricao }}</td>
-        <td>{{ task.finalizada }}</td>
+        <td id="finalizada">{{ task.finalizada }}</td>
         <td class="button-container">
           <form action="{% url 'finalizar_tarefa' task.id %}" method="post">
             {% csrf_token %}
@@ -135,7 +134,20 @@ button {
     <button type="submit">Criar</button>
   </form>
 
-
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var finalizadaCells = document.querySelectorAll("#finalizada");
+  
+  finalizadaCells.forEach(function(finalizadaCell) {
+    var value = finalizadaCell.textContent.trim();
+    if (value === "False") {
+      finalizadaCell.textContent = "Em andamento";
+    } else if (value === "True") {
+      finalizadaCell.textContent = "Finalizado";
+    }
+  });
+});
+</script>
   
 </body>
 </html>
