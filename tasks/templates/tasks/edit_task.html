@@ -6,7 +6,54 @@
   <title>Editar Tarefa</title>
 </head>
 <body>
-  <h1>Editar Tarefa</h1>
+  <style>
+/* Target the entire form */
+form {
+  display: flex; /* Arrange elements horizontally */
+  flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+  margin: 20px auto; /* Add margin and center horizontally */
+  width: 50%; /* Set a maximum width */
+}
+
+/* Style form labels */
+form label {
+  display: block; /* Display labels on their own line */
+  margin-bottom: 5px; /* Add space between labels and inputs */
+  width: 100%; /* Match the width of the input element (adjust as needed) */
+}
+
+/* Style form input elements (text, date, textarea) */
+form input[type="text"],
+form input[type="date"],
+form textarea {
+  width: 100%; /* Match the width of the label */
+  padding: 8px; /* Add padding for better readability */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Style the checkbox */
+form input[type="checkbox"] {
+  margin-right: 5px; /* Add space between checkbox and label */
+}
+
+/* Style the checkbox label */
+form label[for="edit-finalizada"] {
+  display: inline; /* Display inline with the checkbox */
+}
+
+/* Style the submit button */
+form button {
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; /* Indicate clickable button */
+  margin-top: 10px; /* Add space above the button */
+}
+  </style>
+  <h1 style="text-align: center;">Editar Tarefa</h1>
   <form id="editForm" method="post">
     {% csrf_token %}
     <label for="edit-titulo">Título:</label>
